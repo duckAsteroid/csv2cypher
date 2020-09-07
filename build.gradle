@@ -1,0 +1,49 @@
+plugins {
+    // up-to-date checker utility
+    id "com.github.ben-manes.versions" version "0.30.0"
+    // lombok plugin
+    id "io.freefair.lombok" version "5.1.1"
+}
+
+apply plugin: 'java'
+apply plugin: 'application'
+
+group = 'com.asteroid.duck'
+version = '0.0.1'
+description = 'CSV to Neo4J Cypher tool'
+
+java {
+    mainClassName = 'com.asteroid.duck.csv2cypher.Main'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // SLF4J Logging
+    compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.30'
+    // Logback implementation
+    runtime group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
+
+    // Apache CSV parser
+    compile group: 'org.apache.commons', name: 'commons-csv', version: '1.8'
+
+    testImplementation "org.testcontainers:junit-jupiter:1.14.3"
+}
+
+run {
+    args = [
+            "--nodes=EngPart=test-data/engpart.csv",
+            "--relationships=CONTAINS=test-data/engpart-contains-engpart.csv",
+            "--relationships=NEXT_VERSION=test-data/engpart-next-version-engpart.csv",
+            "--nodes=SvcPart=test-data/svcpart.csv",
+            "--relationships=CONTAINS=test-data/svcpart-contains-svcpart.csv",
+            "--relationships=NEXT_VERSION=test-data/svcpart-next-version-svcpart.csv",
+            "--relationships=DERIVED_FROM=test-data/svcpart-derived-from-engpart.csv",
+            "--nodes=Project=test-data/project.csv",
+            "--relationships=NEXT_VERSION=test-data/project-next-version-project.csv",
+            "--relationships=CONTAINS=test-data/project-contains-engpart.csv",
+            "--relationships=CONTAINS=test-data/project-contains-svcpart.csv"
+    ]
+}
