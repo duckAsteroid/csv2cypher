@@ -37,9 +37,9 @@ jobs:
 
     - name: Upload package artifacts
       uses: actions/upload-artifact@v2
-        with:
-          name: Package
-          path: build/libs
+      with:
+        name: Package
+        path: build/libs
 
     - name: Publish GitHub Packages
       run: ./gradlew publishAllPublicationsToGitHubPackagesRepository
