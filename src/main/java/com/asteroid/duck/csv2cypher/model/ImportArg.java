@@ -3,9 +3,14 @@ package com.asteroid.duck.csv2cypher.model;
 import lombok.Builder;
 import lombok.Data;
 
+/**
+ * A class that represents a command line argument for neo4j-admin import
+ * https://neo4j.com/docs/operations-manual/current/tools/neo4j-admin-import/#neo4j-admin-import
+ */
 @Data
 @Builder
 public class ImportArg {
+    /** What kind of thing is being imported - nodes or relations */
     public enum Type {
         RELATIONSHIPS, NODES
     }

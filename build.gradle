@@ -34,22 +34,6 @@ dependencies {
     testImplementation "org.testcontainers:junit-jupiter:1.14.3"
 }
 
-run {
-    args = [
-            "--nodes=EngPart=test-data/engpart.csv",
-            "--relationships=CONTAINS=test-data/engpart-contains-engpart.csv",
-            "--relationships=NEXT_VERSION=test-data/engpart-next-version-engpart.csv",
-            "--nodes=SvcPart=test-data/svcpart.csv",
-            "--relationships=CONTAINS=test-data/svcpart-contains-svcpart.csv",
-            "--relationships=NEXT_VERSION=test-data/svcpart-next-version-svcpart.csv",
-            "--relationships=DERIVED_FROM=test-data/svcpart-derived-from-engpart.csv",
-            "--nodes=Project=test-data/project.csv",
-            "--relationships=NEXT_VERSION=test-data/project-next-version-project.csv",
-            "--relationships=CONTAINS=test-data/project-contains-engpart.csv",
-            "--relationships=CONTAINS=test-data/project-contains-svcpart.csv"
-    ]
-}
-
 publishing {
     repositories {
         maven {
