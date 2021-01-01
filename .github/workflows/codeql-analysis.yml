@@ -51,7 +51,7 @@ jobs:
     # 📚 https://git.io/JvXDl
 
 
-    - run: gradlew build
+    - run: ./gradlew build
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v1
