@@ -2,6 +2,7 @@ package com.asteroid.duck.csv2cypher.model;
 
 import org.apache.commons.csv.CSVRecord;
 
+import java.io.IOException;
 import java.io.PrintStream;
 import java.util.List;
 import java.util.Set;
@@ -24,7 +25,7 @@ public class Relationship extends CypherGenerator {
     }
 
     @Override
-    public int createCypher(Iterable<CSVRecord> records, PrintStream out) {
+    public int createCypher(Iterable<CSVRecord> records, PrintStream out) throws IOException {
         out.println("CREATE ");
         return super.createCypher(records, out);
     }

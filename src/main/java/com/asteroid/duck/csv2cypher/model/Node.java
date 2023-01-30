@@ -13,7 +13,7 @@ public class Node extends CypherGenerator {
     private final Set<String> idSpace;
 
     public Node(String label, IdSpaceManager idSpaceManager, List<Field> fields) {
-        super(fields.stream().filter(Predicate.not(Field.byType(Field.SpecialType.ID))).collect(Collectors.toList()), label);
+        super(fields.stream().filter(field -> !field.getName().isEmpty()).collect(Collectors.toList()), label);
         this.idField = fields.stream().filter(Field.byType(Field.SpecialType.ID)).findFirst().orElseThrow();;
         this.idSpace = idSpaceManager.getIdSpace(idField.getIdSpace());
     }

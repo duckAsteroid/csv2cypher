@@ -2,10 +2,12 @@ package com.asteroid.duck.csv2cypher.model;
 
 import org.apache.commons.csv.CSVRecord;
 
+import java.io.IOException;
 import java.io.PrintStream;
 import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public abstract class CypherGenerator {
 
@@ -18,20 +20,42 @@ public abstract class CypherGenerator {
     }
 
     public static String asCypherProperty(Field f, CSVRecord record) {
-        final char delim = f.getType().equals("string") ? '\'' : ' ';
-        return f.getName() +':'+ delim + record.get(f.getRecordName()) + delim;
+        String csvValue = record.get(f.getRecordName());
+        final char start, end;
+        switch(f.getType()) {
+            case "string":
+                start = end = '\'';
+                break;
+            case "string[]":
+                start = '[';
+                end = ']';
+                String[] values = csvValue.split(";");
+                csvValue = Stream.of(values).map(s -> "'"+s+"'").collect(Collectors.joining(","));
+                break;
+            default:
+                start = end = ' ';
+        }
+
+
+        return f.getName() +':'+ start + csvValue + end;
     }
 
     public String cypherProperties(CSVRecord record) {
         return propertyFields.stream().map(field -> asCypherProperty(field, record)).collect(Collectors.joining(", ", "{", "}"));
     }
 
-    public int createCypher(Iterable<CSVRecord> records, PrintStream out) {
+    public int createCypher(Iterable<CSVRecord> records, PrintStream out) throws IOException {
         int count = 0;
         Iterator<CSVRecord> iter = records.iterator();
         while(iter.hasNext()) {
-            out.println(createRowCypher(iter.next(), !iter.hasNext()));
-            count++;
+            CSVRecord record = iter.next();
+            try {
+                out.println(createRowCypher(record, !iter.hasNext()));
+                count++;
+            }
+            catch(IllegalArgumentException e) {
+                throw new IOException("Error in CSV line "+count+". "+ record.toString(), e);
+            }
         }
         return count;
     };

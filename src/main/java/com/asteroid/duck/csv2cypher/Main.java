@@ -72,6 +72,10 @@ public class Main implements IdSpaceManager {
             int rows = generator.createCypher(csvParser, out);
             log.debug("Wrote "+rows+" records to file");
         }
+        catch (IOException e) {
+            System.err.println(path);
+            e.printStackTrace();
+        }
     }
 
 
