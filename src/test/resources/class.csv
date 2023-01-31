@@ -1,0 +1,3 @@
+:ID(Class-ID),name,code,level:random,open:randomboolean,full:fixed(string;TRUE)
+0,"React for beginners","REA101"
+1,"Neo4J for dummies","NEODUM"

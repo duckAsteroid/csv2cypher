@@ -1,0 +1,3 @@
+id:ID(Person-ID),name,height:random(double),sex:randomenum(MALE;FEMALE)
+4746,"David Smith"
+4747,"Chris Senior"
