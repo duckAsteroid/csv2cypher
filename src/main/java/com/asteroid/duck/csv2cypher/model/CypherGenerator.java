@@ -59,7 +59,7 @@ public abstract class CypherGenerator {
                 }
             }
             else {
-                csvValue = Double.toString(rnd.nextDouble(1.0d));
+                csvValue = Double.toString(rnd.nextDouble());
             }
         }
         else {

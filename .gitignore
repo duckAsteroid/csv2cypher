@@ -16,3 +16,4 @@ gradle-app.setting
 # Ignore intellij
 /.idea/
 
+/src/test/resources/generated.cql
